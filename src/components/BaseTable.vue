@@ -1,17 +1,18 @@
 <template>
   <table class="table">
     <thead>
-    <tr v-for="th in tableHeaders" :key="th">
-        <th scope="col">{{ th.name }}</th>
+    <tr>
+        <th v-for="th in tableHeaders" :key="th" scope="col">{{ th.text }}</th>
     </tr>
     </thead>
     <tbody>
     <tr v-for="td in tableEntries" :key="td">
-        <td>{{ td.avatar }}</td>
+        <td><img :src="td.avatar" class="img-thumbnail rounded-circle" width="30" height="30"></td>
         <td>{{ td.first_name + ' ' + td.last_name }}</td>
         <td>{{ td.email }}</td>
         <td>{{ td.date_of_birth }}</td>
-        <td>{{ td.title }}</td>
+        <td>{{ td.credit_card.cc_number }}</td>
+        <td>{{ td.employment.title }}</td>
     </tr>
     </tbody>
   </table>
