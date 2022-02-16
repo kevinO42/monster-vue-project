@@ -1,9 +1,9 @@
 <template>
   <div class="main">
     <div class="card">
-      <div class="card-header"><h5>Dashboard</h5></div>
+      <div class="card-header"><h5>User</h5></div>
       <div class="card-body">
-        <BaseTable :headers="headers" :entries="entries" />
+        <BaseTable :headers="headers" :entries="entries" :sortable="sortable" />
       </div>
     </div>
   </div>
@@ -25,20 +25,18 @@ export default {
         { name: 'email', text: 'Email' },
         { name: 'date_of_birth', text: 'Date of Birth' },
         { name: 'credit_card', text: 'Credit Card' },
-        { name: 'title', text: 'Title' }
+        { name: 'title', text: 'Title' },
+        { name: 'status', text: 'Status' }
       ],
-      entries: []
+      entries: [],
+      sortable: [ 'name', 'email', 'status' ]
     }
   },
   mounted() {
     fetch('https://random-data-api.com/api/users/random_user?size=20')
       .then(res => res.json())
       .then(data => this.entries = data)
-      .catch(err => err.message)
+      .catch(err => console.log(err.message))
   }
 }
 </script>
-
-<style>
-
-</style>
