@@ -2,12 +2,11 @@
     background: #f6f6f6;
     height: 100vh;
   }
+
   nav {
     background-color: white;
   }
-  .search-form {
-    width: 50%;
-  }
+
   #sidebar {
     position: fixed;
     top: 0;
@@ -44,4 +43,9 @@
     text-align: center;
     width: 100%;
     display: block;
+  }
+
+  .main {
+    padding-top: 6rem;
+    padding-left: 5rem;
   }

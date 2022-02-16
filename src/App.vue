@@ -5,9 +5,9 @@
 
     <!-- sidebar navigation template -->
     <Sidenav />
-  </div>
 
-  <router-view/>
+    <router-view/>
+  </div>
 </template>
 
 <script>
