@@ -42,7 +42,7 @@
                 <div class="col-md-4">
                     <label for="title" class="form-label">Employment Title</label>
                     <input type="text" v-model="form.title" class="form-control" id="title" placeholder="Enter title" required />
-                    <div v-if="errors.err_lastname" class="invalid-feedback">
+                    <div v-if="errors.err_title" class="invalid-feedback">
                         {{ errors.err_title }}
                     </div>
                 </div>
@@ -58,8 +58,12 @@
                         {{ errors.err_status }}
                     </div>
                 </div>
+                <div class="col-md-4">
+                    <label for="avatar" class="form-label">Upload Avatar (optional)</label>
+                    <input type="file" class="form-control" id="avatar">
+                </div>
                 <div class="col-12">
-                    <button class="btn btn-sucess" type="submit">Register User</button>
+                    <button class="btn btn-success" type="submit">Register User</button>
                 </div>
               </form>
           </div>
@@ -78,7 +82,8 @@ export default {
                 birthdate: '',
                 credit_card: '',
                 title: '',
-                status: ''
+                status: '',
+                avatar: true
             },
             errors: {
                 err_firstname: '',
@@ -87,7 +92,8 @@ export default {
                 err_birthdate: '',
                 err_credit_card: '',
                 err_title: '',
-                err_status: ''
+                err_status: '',
+                err_avatar: ''
             },
             validated: false
         }
