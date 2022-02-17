@@ -33,7 +33,7 @@
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <label for="credit_card" class="form-label">Credit Card Number</label>
+                    <label for="credit_card" class="form-label">Credit Card</label>
                     <input type="text" v-model="form.credit_card" class="form-control" id="credit_card" placeholder="XXXX-XXXX-XXXX-XXXX" required />
                     <div v-if="errors.err_credit_card" class="invalid-feedback">
                         {{ errors.err_credit_card }}
@@ -59,7 +59,7 @@
                     </div>
                 </div>
                 <div class="col-12">
-                    <button class="btn btn-successq" type="submit">Register User</button>
+                    <button class="btn btn-sucess" type="submit">Register User</button>
                 </div>
               </form>
           </div>
