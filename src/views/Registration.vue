@@ -33,6 +33,13 @@
                     </div>
                 </div>
                 <div class="col-md-4">
+                    <label for="credit_card" class="form-label">Credit Card Number</label>
+                    <input type="text" v-model="form.credit_card" class="form-control" id="credit_card" placeholder="XXXX-XXXX-XXXX-XXXX" required />
+                    <div v-if="errors.err_credit_card" class="invalid-feedback">
+                        {{ errors.err_credit_card }}
+                    </div>
+                </div>
+                <div class="col-md-4">
                     <label for="title" class="form-label">Employment Title</label>
                     <input type="text" v-model="form.title" class="form-control" id="title" placeholder="Enter title" required />
                     <div v-if="errors.err_lastname" class="invalid-feedback">
@@ -52,7 +59,7 @@
                     </div>
                 </div>
                 <div class="col-12">
-                    <button class="btn btn-primary" type="submit">Register User</button>
+                    <button class="btn btn-successq" type="submit">Register User</button>
                 </div>
               </form>
           </div>
@@ -69,6 +76,7 @@ export default {
                 lastname: '',
                 email: '',
                 birthdate: '',
+                credit_card: '',
                 title: '',
                 status: ''
             },
@@ -77,6 +85,7 @@ export default {
                 err_lastname: '',
                 err_email: '',
                 err_birthdate: '',
+                err_credit_card: '',
                 err_title: '',
                 err_status: ''
             },
@@ -91,6 +100,7 @@ export default {
             this.errors.err_lastname = error.err_lastname.length ? '' : 'This is a required field.'
             this.errors.err_email = error.err_email.length ? '' : 'This is a required field.'
             this.errors.err_birthdate = error.err_birthdate.length ? '' : 'This is a required field.'
+            this.errors.err_credit_card = error.err_credit_card.length ? '' : 'This is a required field.'
             this.errors.err_title = error.err_title.length ? '' : 'This is a required field.'
             this.errors.err_status = error.err_status.length ? '' : 'This is a required field.'
         },
