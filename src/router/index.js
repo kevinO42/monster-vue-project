@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Dashboard from '../views/Dashboard.vue'
 import User from '../views/User.vue'
+import Registration from '../views/Registration.vue'
 import ErrorPage from '../views/ErrorPage.vue'
 
 const routes = [
@@ -13,6 +14,11 @@ const routes = [
     path: '/user',
     name: 'User',
     component: User
+  },
+  {
+    path: '/registration',
+    name: 'Registration',
+    component: Registration
   },
 
   // error 404 route
