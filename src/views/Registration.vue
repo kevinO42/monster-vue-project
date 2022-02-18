@@ -3,47 +3,47 @@
       <div class="card">
           <div class="card-header"><h5>Create User</h5></div>
           <div class="card-body">
-              <form @submit.prevent="handleSubmit" :class="!validated ? 'row g-3 needs-validation' : 'row g-3 was-validated'" novalidate>
+              <form @submit.prevent="handleSubmit" :class="!is_validated ? 'row g-3 needs-validation' : 'row g-3 was-validated'" novalidate>
                 <div class="col-md-4 has-validation">
                     <label for="firstname" class="form-label">First name</label>
                     <input type="text" v-model="form.firstname" class="form-control" id="firstname" placeholder="Enter firstname" required />
-                    <div v-if="errors.err_firstname" class="invalid-feedback">
-                        {{ errors.err_firstname }}
+                    <div class="invalid-feedback">
+                        This is a required field.
                     </div>
                 </div>
                 <div class="col-md-4">
                     <label for="lastname" class="form-label">Last name</label>
                     <input type="text" v-model="form.lastname" class="form-control " id="lastname" placeholder="Enter lastname" required />
-                    <div v-if="errors.err_lastname" class="invalid-feedback">
-                        {{ errors.err_lastname }}
+                    <div class="invalid-feedback">
+                        This is a required field.
                     </div>
                 </div>
                 <div class="col-md-4">
                     <label for="email" class="form-label">Email</label>
                     <input type="email" v-model="form.email" class="form-control" id="email" placeholder="Enter email" required />
-                    <div v-if="errors.err_email" class="invalid-feedback">
-                        {{ errors.err_email }}
+                    <div class="invalid-feedback">
+                         This is a required field.
                     </div>
                 </div>
                 <div class="col-md-4">
                     <label for="birthdate" class="form-label">Date of Birth</label>
                     <input type="date" v-model="form.birthdate" class="form-control" id="birthdate" required />
-                    <div v-if="errors.err_birthdate" class="invalid-feedback">
-                        {{ errors.err_birthdate }}
+                    <div class="invalid-feedback">
+                         This is a required field.
                     </div>
                 </div>
                 <div class="col-md-4">
                     <label for="credit_card" class="form-label">Credit Card</label>
                     <input type="text" v-model="form.credit_card" class="form-control" id="credit_card" placeholder="XXXX-XXXX-XXXX-XXXX" required />
-                    <div v-if="errors.err_credit_card" class="invalid-feedback">
-                        {{ errors.err_credit_card }}
+                    <div class="invalid-feedback">
+                        This is a required field.
                     </div>
                 </div>
                 <div class="col-md-4">
                     <label for="title" class="form-label">Employment Title</label>
                     <input type="text" v-model="form.title" class="form-control" id="title" placeholder="Enter title" required />
-                    <div v-if="errors.err_title" class="invalid-feedback">
-                        {{ errors.err_title }}
+                    <div class="invalid-feedback">
+                        This is a required field.
                     </div>
                 </div>
                 <div class="col-md-4">
@@ -54,13 +54,13 @@
                         <option value="Pending">Pending</option>
                         <option value="Blocked">Blocked</option>
                     </select>
-                    <div v-if="errors.err_lastname" class="invalid-feedback">
-                        {{ errors.err_status }}
+                    <div class="invalid-feedback">
+                        This is a required field.
                     </div>
                 </div>
                 <div class="col-md-4">
                     <label for="avatar" class="form-label">Upload Avatar (optional)</label>
-                    <input type="file" class="form-control" id="avatar">
+                    <input type="file" @change="handleUpload($event)" class="form-control" id="avatar">
                 </div>
                 <div class="col-12">
                     <button class="btn btn-success" type="submit">Register User</button>
@@ -70,8 +70,9 @@
       </div>
   </div>
 </template>
-
+import axios from 
 <script>
+
 export default {
     data() {
         return {
@@ -83,43 +84,73 @@ export default {
                 credit_card: '',
                 title: '',
                 status: '',
-                avatar: true
+                avatar: ''
             },
-            errors: {
-                err_firstname: '',
-                err_lastname: '',
-                err_email: '',
-                err_birthdate: '',
-                err_credit_card: '',
-                err_title: '',
-                err_status: '',
-                err_avatar: ''
-            },
-            validated: false
+            errors: [],
+            is_validated: false,
+            has_passed:false
+
         }
     },
 
     methods: {
-        handleValidation(error) {
-            // simple validation for demo purposes only
-            this.errors.err_firstname = error.err_firstname.length ? '' : 'This is a required field.'
-            this.errors.err_lastname = error.err_lastname.length ? '' : 'This is a required field.'
-            this.errors.err_email = error.err_email.length ? '' : 'This is a required field.'
-            this.errors.err_birthdate = error.err_birthdate.length ? '' : 'This is a required field.'
-            this.errors.err_credit_card = error.err_credit_card.length ? '' : 'This is a required field.'
-            this.errors.err_title = error.err_title.length ? '' : 'This is a required field.'
-            this.errors.err_status = error.err_status.length ? '' : 'This is a required field.'
+        handleValidation() {
+            this.errors.splice(0)
+            this.errors.push(this.form.firstname.length > 0 ? true : false)
+            this.errors.push(this.form.lastname.length > 0 ? true : false)
+            this.errors.push(this.form.email.length > 0 ? true : false)
+            this.errors.push(this.form.birthdate.length > 0 ? true : false)
+            this.errors.push(this.form.credit_card.length > 0 ? true : false)
+            this.errors.push(this.form.title.length > 0 ? true : false)
+            this.errors.push(this.form.status.length > 0 ? true : false)
+
+            // check for errors
+            this.has_passed = this.errors.indexOf(false) == -1 ? true : false
+        },
+
+        handleUpload(event) {
+            this.form.avatar = event.target.files[0];
         },
 
         handleSubmit() {
-            // check validation process
-            this.validated = true
+            // trigger bootstrap validation process
+            this.is_validated = true
 
             // execute validation
-            this.handleValidation(this.errors)
+            this.handleValidation()
 
-            // display to console form
-            console.log(this.form)
+            // if no more errors send post request
+            if (this.has_passed) {
+                // POST request using fetch with error handling
+                let post = JSON.stringify({
+                    first_name: this.form.firstname,
+                    last_name: this.form.lastname,
+                    email: this.form.email,
+                    credit_card: this.form.credit_card,
+                    title: this.form.title,
+                    status: this.form.status,
+                    avatar: this.form.avatar
+                })
+
+                const requestSettings = {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: post
+                };
+
+                // display form submission to console
+                console.log(post)
+
+                // doesn't work due to dummy URL
+                fetch('http://localhost:8080/registration/post', requestSettings)
+                    .then(async response => {
+                        const data = await response.json();
+                    })
+                    .catch(error => {
+                        this.errorMessage = error;
+                        console.error('There was an error!', error);
+                    });
+            }  
         }
     }
 }
