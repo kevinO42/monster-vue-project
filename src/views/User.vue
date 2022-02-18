@@ -14,7 +14,7 @@
           </div>
         </div>
       </div>
-      <div class="card-body">
+      <div class="card-body overflow-auto">
         <BaseTable :headers="headers" :entries="entries" :sortable="sortable" />
       </div>
     </div>
